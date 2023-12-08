@@ -1,13 +1,16 @@
-# Sample Hardhat Project
+<!--
+ * @Author: 南宫
+ * @Date: 2023-12-05 18:06:27
+ * @LastEditTime: 2023-12-08 16:09:55
+-->
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+记得配置 ipfs 和 ipfsdata 的环境变量！
 
-Try running some of the following tasks:
+npm run start ##启动服务器 不用了
+nodemon ./app.js ##启动服务器
+npx hardhat node ##启动 hardhat 节点
+ipfs init --profile server ##初始化 ipfs
+ipfs daemon ##启动 ipfs
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+http://localhost:8080/ipfs/cid ##查看当前上传的图片
+remixd -s "D:\code\nft-teachers" --remix-ide "https://remix.ethereum.org" ##启动 remixd

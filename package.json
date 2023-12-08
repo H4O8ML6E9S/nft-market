@@ -1,19 +1,24 @@
 {
-  "name": "hardhat-project",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
-    "hardhat": "^2.19.0"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "^5.0.0",
-    "hardhat-abi-exporter": "^2.10.1",
-    "solhint": "^4.0.0"
-  },
+  "type": "module",
+  "name": "houduan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
   "scripts": {
-    "test": "npx hardhat test",
-    "compile": "npx hardhat compile",
-    "flatten": "npx hardhat flatten",
-    "coverage": "npx hardhat coverage",
-    "solhint": "solhint contracts/**/*.sol"
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.5",
+    "ethers": "^6.8.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "kubo-rpc-client": "^3.0.1",
+    "nodemon": "^3.0.1"
   }
 }
