@@ -1,17 +1,28 @@
-<!--
- * @Author: 南宫
- * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-14 21:26:41
--->
+**建议一切测试都在谷歌浏览器上!!!**
 
-建议一切测试都在谷歌浏览器上!!!
+**这个测试项目非常不稳定，有时候会报连接失败的错误，不要担心**
+
+**整体启动步骤：**
+
+- **部署合约，修改.env文件的合约地址**
+- **nodemon ./app.js ##启动后端服务器**
+- **npx hardhat node ##启动 hardhat 节点**
+- **npm start ##启动react前端项目**   
+
+**项目整体查看：**
+
+![img](README.assets/{Y8Q[MD9KVHZS7K`63JHUEU-1702648200247.jpg)
+
+![img](README.assets/Y{35M1EOYQ7UPN%ZGDE5%G.jpg)
+
+![img](README.assets/CD4IB@AW5LBG4{[${2@W8I.jpg)
 
 ## 未结合react版 NFT后端
 
 记得配置 ipfs 和 ipfsdata 的环境变量！
 
 npm run start ##启动服务器 不用了
-nodemon ./app.js ##启动服务器
+nodemon ./app.js ##启动后端服务器
 npx hardhat node ##启动 hardhat 节点
 ipfs init --profile server ##初始化 ipfs
 ipfs daemon ##启动 ipfs
