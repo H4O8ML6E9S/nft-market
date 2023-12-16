@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-05 17:41:13
- * @LastEditTime: 2023-12-08 19:36:39
+ * @LastEditTime: 2023-12-16 14:55:12
  */
 /**
  * express 一种web框架，用于启动服务器
@@ -14,6 +14,7 @@
  * dotenv 配置总体环境变量
  */
 import express from 'express';
+import cors from 'cors'; //跨域请求资源 保证前端能给后端发送数据
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 import { mint } from './nft-minter.js'
@@ -25,6 +26,7 @@ const app = express();
 app.set('view engine', 'ejs'); //使用ejs模板引擎
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
+app.use(cors());
 
 app.get('/', (req, res) => {
   // res.send('Hello world !'); 
@@ -32,6 +34,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload', (req, res) => {
+
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ message: 'No files were uploaded.' });
   }
@@ -44,7 +47,7 @@ app.post('/upload', (req, res) => {
   const filename = file.name;
   const filePath = "files/" + filename;
 
-  /**1.将用户上传的图片转移到本地存储起来，后面再传递给IPFS */
+  /**1.将用户上传的图片转移到本地存储起来，这里将文件名修改为cid，方便以后读取，后面再传递给IPFS */
   file.mv(filePath, async (err) => {
     if (err) {
       console.log(err);
@@ -57,7 +60,7 @@ app.post('/upload', (req, res) => {
     const metadata = {
       title: title,
       description: description,
-      image: process.env.IPFS_NET + fileCid
+      image: process.env.IPFS_NET + fileCid + filePath.slice(5)
     }
 
     const metadataResult = await uploadJSONToIPFS(metadata);
@@ -67,7 +70,6 @@ app.post('/upload', (req, res) => {
     // 给用户挖一个NFT
     const userAddress = address || process.env.ADDRESS;
     await mint(userAddress, process.env.IPFS_NET + metadataCid)
-
     res.json({
       message: "file upload sucessfully!!",
       data: metadata
@@ -76,6 +78,8 @@ app.post('/upload', (req, res) => {
   })
 });
 
-app.listen(8088, () => {
-  console.log('Example app listening on port 8088!');
+const PORT = process.env.PORT
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}!`);
 });
