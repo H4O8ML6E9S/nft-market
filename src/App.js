@@ -1,17 +1,19 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-15 15:45:48
+ * @LastEditTime: 2023-12-16 17:09:46
  */
 import './App.css';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar.js';
+import MyNFT from './components/MyNFT.js';
 import UploadSuccess from './components/UploadSuccess.js';
 import UploadImage from './components/UploadImage.js'
 import NFTGrid from './components/NFTGrid.js'
 import NFTDetail from './components/NFTDetail.js'
+import MyNFTDetail from './components/MyNFTDetail.js'
 
 function App () {
 
@@ -55,7 +57,9 @@ function App () {
         <Routes>
           <Route path='/' exact element={<UploadImage address={walletAddress} />} />
           <Route path="/nfts" element={<NFTGrid />} />
+          <Route path="/Mynfts" element={<MyNFT />} />
           <Route path="/nft-detail/:tokenId" element={<NFTDetail />} />
+          <Route path="/mynft-detail/:tokenId" element={<MyNFTDetail />} />
           <Route path="/success" element={<UploadSuccess />} />
         </Routes>
       </Router>
