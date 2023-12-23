@@ -9,14 +9,15 @@
     "axios": "^1.6.2",
     "crypto-browserify": "^3.12.0",
     "dotenv": "^16.3.1",
-    "ethers": "^6.9.0",
+    "ethereumjs-tx": "^2.1.2",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "web3": "^4.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

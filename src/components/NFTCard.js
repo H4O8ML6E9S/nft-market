@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-16 15:52:01
+ * @LastEditTime: 2023-12-23 22:48:42
  */
 import { useEffect, useState } from 'react';
 import { getMetadata } from '../utils/nft.js';
@@ -17,14 +17,14 @@ const NFTCard = ({ tokenId, onClick }) => {
     const getInfo = async () => {
       // console.log("NFTCard tokenId=", tokenId);
       const metadata = await getMetadata(tokenId);
-      console.log('metadata=', metadata);
+      // console.log('metadata=', metadata);
       const order = await getOrder(tokenId);
       console.log('order=', order);
       setMetadata(metadata);
       setOrder(order);
     }
     getInfo();
-  }, []);
+  }, [tokenId]);
 
   /* onClick实现自动跳转到NFT详细页面 */
   return (

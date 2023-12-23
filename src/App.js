@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-16 17:09:46
+ * @LastEditTime: 2023-12-23 11:00:28
  */
 import './App.css';
 import { useState, useEffect } from 'react';
@@ -18,6 +18,7 @@ import MyNFTDetail from './components/MyNFTDetail.js'
 function App () {
 
   const [walletAddress, setwalletAddress] = useState("");
+
   useEffect(() => {
     getwalletAddress();
     addWalletListener();

@@ -1,42 +1,6 @@
-**建议一切测试都在<u>谷歌浏览器</u>上!!!**
+**建议一切测试都在谷歌浏览器上!!!**
 
-**项目启动过程：**
 
-- **先部署好三个合约，并修改前后端的.env文件!!!**
-- **后端的nft-minter.js可选择要不要上架nft**
-
-- **nodemon ./app.js ##启动服务器  8088端口**
-- **ipfs daemon ##启动 ipfs  8080端口**
-- **npm start ##启动react项目   3000端口**
-- **npx hardhat node ##启动链上节点**
-
-**项目操作过程：**
-
-- **查看nft市场 为空**
-
-![](.\README.assets\image-20231216172237671.png)
-
-- 查看个人拥有的nft数量
-
-![](.\README.assets\image-20231216172903256.png)
-
-- 上架操作 **<u>有报错不要慌，等node交易成功就行，这个bug不知道怎么解决</u>**
-
-![](.\README.assets\image-20231216173017354.png)
-
-![](.\README.assets\image-20231216173050051.png)
-
-- 下架操作  **<u>有报错不要慌，等node交易成功就行，这个bug不知道怎么解决</u>**
-
-![](.\README.assets\image-20231216173301576.png)
-
-- 购买操作  **<u>有报错不要慌，等node交易成功就行，这个bug不知道怎么解决</u>**
-
-![](.\README.assets\image-20231216175912832.png)
-
-- **存在的bug：账户写死了，只能是**
-
-**REACT_APP_USER=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266**
 
 ## 未结合react版 NFT后端
 

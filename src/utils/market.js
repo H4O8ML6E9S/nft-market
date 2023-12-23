@@ -1,11 +1,10 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-16 16:01:58
+ * @LastEditTime: 2023-12-23 14:08:17
  */
 import { ethers } from 'ethers';
 import ABI from '../contracts/Market.json';
-
 
 let provider = new ethers.BrowserProvider(window.ethereum)
 const contractAddress = process.env.REACT_APP_MarketAdrss;
@@ -22,8 +21,17 @@ export async function changePrice (tokenId, price) {
 }
 
 export async function cancelOrder (tokenId) {
-  const result = await contract.cancelOrder(tokenId);
-  console.log('cancel order', result.hash);
+  try {
+    // Call the cancelOrder function on the smart contract
+    const transaction = await contract.cancelOrder(tokenId);
+    // Wait for the transaction to be mined
+    await transaction.wait();
+    console.log('Order canceled successfully:', transaction.hash);
+    return { success: true, message: 'Order canceled successfully' };
+  } catch (error) {
+    console.error('Error canceling order:', error.message);
+    return { success: false, message: 'Error canceling order' };
+  }
 }
 
 export async function getAllNFTs () {

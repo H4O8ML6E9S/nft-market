@@ -37,6 +37,8 @@ function UploadImage ({ address }) {
     formData.append('file', fileInputRef.current.files[0]);
     // 将NFT挖给当前用户地址 通过此方法传递给后端
     formData.append('address', address);
+    // console.log('UploadImage address', address);
+
 
     try {
       // 发送阿贾克斯请求到后端
