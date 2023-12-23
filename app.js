@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-05 17:41:13
- * @LastEditTime: 2023-12-16 14:55:12
+ * @LastEditTime: 2023-12-23 11:54:18
  */
 /**
  * express 一种web框架，用于启动服务器
@@ -69,6 +69,8 @@ app.post('/upload', (req, res) => {
 
     // 给用户挖一个NFT
     const userAddress = address || process.env.ADDRESS;
+    // console.log('当前mint的用户', userAddress);
+
     await mint(userAddress, process.env.IPFS_NET + metadataCid)
     res.json({
       message: "file upload sucessfully!!",

@@ -2,13 +2,15 @@
 
 **项目启动过程：**
 
+- **npx hardhat node ##启动链上节点**
+- **remix-ide连接node节点8545端口**
+
 - **先部署好三个合约，并修改前后端的.env文件!!!**
 - **后端的nft-minter.js可选择要不要上架nft**
 
-- **nodemon ./app.js ##启动服务器  8088端口**
+- **nodemon ./app.js ##启动后端服务器  8088端口**
 - **ipfs daemon ##启动 ipfs  8080端口**
 - **npm start ##启动react项目   3000端口**
-- **npx hardhat node ##启动链上节点**
 
 **项目操作过程：**
 
