@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-23 22:23:54
+ * @LastEditTime: 2023-12-25 10:51:47
  */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -22,7 +22,8 @@ const NFTDetail = () => {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         // 2.处理上架
         const res = await Listing(tokenId, accounts[0]);
-        console.log(res);
+        // console.log('MyNFTDetail.js accounts[0]=', accounts[0]);
+        console.log('Listing successful', res);
       } catch (error) {
         console.error('Error connecting to wallet:', error);
       }

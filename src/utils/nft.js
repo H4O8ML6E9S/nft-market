@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-23 21:20:05
+ * @LastEditTime: 2023-12-25 14:57:14
  */
 import { ethers } from 'ethers';
 import ABI from '../contracts/MyNFT.json';
@@ -16,7 +16,7 @@ const McontractAddress = process.env.REACT_APP_MarketAdrss;
 
 // 上架
 export async function Listing (tokenId, userAddr) {
-  console.log('userAddr=', userAddr);
+  // console.log('userAddr=', userAddr);
   /* 解决：eth_sendRawTransaction的问题
   Nonce too high. Expected nonce to be 5 but got 11. Note that transactions can't be queued when automining */
   const nonce = await provider.getTransactionCount(userAddr);
@@ -24,7 +24,7 @@ export async function Listing (tokenId, userAddr) {
     userAddr, McontractAddress, tokenId,
     "0x0000000000000000000000000000000000000000000000000001c6bf52634000", { gasLimit: 1000000, nonce: nonce }
   );
-  console.log('Listing', result.hash);
+  return result.hash;
 }
 
 /* 1.通过balanceof获取用户拥有的NFT数量

@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-23 23:00:54
+ * @LastEditTime: 2023-12-25 15:09:52
  */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,8 +16,9 @@ const NFTDetail = () => {
   const [metadata, setMetadata] = useState('');
   const [order, setOrder] = useState('');
   const [allowance, setAllowance] = useState(0);
-  const [isShow, setisShow] = useState(false); //是否展示
-  const [priceInput, setPriceInput] = useState(''); //获取价格
+  const [isShowButton, setisShowButton] = useState(false); //是否展示button
+  const [selectedPrice, setSelectedPrice] = useState(parseFloat(order.price) || 0);
+  const [isPricePopupVisible, setPricePopupVisible] = useState(false);
 
 
   // 用于比较，进行按钮展示
@@ -28,7 +29,7 @@ const NFTDetail = () => {
     if (window.ethereum) {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        walletAddress = accounts[0].toLowerCase();
+        walletAddress = accounts[0];
         return accounts[0];
       } catch (error) {
         console.error('Error connecting to wallet:', error);
@@ -36,15 +37,25 @@ const NFTDetail = () => {
     }
   };
 
-
   const handleBuyClick = async () => {
+    // console.log(1111);
     try {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          walletAddress = accounts[0];
+        } catch (error) {
+          console.error('Error connecting to wallet:', error);
+        }
+      }
       // 没approve就先approve
       if (allowance === 0) {
         await approve(process.env.REACT_APP_MarketAdrss, "10000000000000000000000", { from: walletAddress });
       }
       // 等待approve完成后再执行buy
-      await buy(tokenId);
+      console.log('当前buy账户', walletAddress);
+      const res = await buy(tokenId, walletAddress);
+      console.log('buy successfully', res);
     } catch (error) {
       console.error('Error buying NFT:', error);
     }
@@ -54,18 +65,33 @@ const NFTDetail = () => {
   // 处理取消按钮
   const handlecancelClick = async () => {
     console.log('tokenId=', tokenId);
-    const res = await cancelOrder(tokenId);
-    console.log(res);
+    let addr = await getWalletAddress();
+    console.log('cancel addr=', addr);
+    const res = await cancelOrder(tokenId, addr);
+    console.log('Order canceled successfully', res);
   };
 
 
   // 处理修改价格
   const handlechangeClick = async () => {
-    setisShow(true); // 显示控件
-    console.log('tokenId=', tokenId);
-    console.log('priceInput=', priceInput);
-    const res = await changePrice(tokenId, priceInput);
-    console.log(res);
+    setPricePopupVisible(true); // 显示价格输入窗口
+  };
+
+  // 处理加减按钮点击事件
+  const handlePriceChange = (amount) => {
+    const newPrice = selectedPrice + amount;
+    setSelectedPrice(newPrice < 0 ? 0 : newPrice);
+  };
+
+  // 处理确认修改价格
+  const handleConfirmPrice = async () => {
+    // 在这里可以添加发送修改价格的请求的逻辑
+    console.log('New Price:', selectedPrice);
+    let addr = getWalletAddress();
+    console.log('cancel addr=', addr);
+    const res = await changePrice(tokenId, selectedPrice, addr);
+    console.log('change price successfully', res);
+    setPricePopupVisible(false); // 隐藏价格输入窗口
   };
 
 
@@ -75,16 +101,13 @@ const NFTDetail = () => {
       const metadata = await getMetadata(tokenId);
       const order = await getOrder(tokenId);
       orderSeller = order.seller.toLowerCase();
-
       // console.log('orderSeller=', orderSeller);
-      console.log('walletAddress=', walletAddress);
-      // console.log('address=', address);
-
+      // console.log('walletAddress=', walletAddress);
       const allowance = await getAllowance(address, process.env.REACT_APP_MarketAdrss);
       setMetadata(metadata);
       setOrder(order);
       setAllowance(allowance);
-      setisShow(walletAddress == orderSeller);
+      setisShowButton(walletAddress == orderSeller);
     }
     getInfo();
   }, [allowance]);
@@ -100,10 +123,19 @@ const NFTDetail = () => {
         <p>Seller: {order.seller}</p>
         <p>Price: {order.price} USDT</p>
         <p>Token ID: {order.tokenId}</p>
-        <button style={{ display: isShow ? 'none' : 'block' }} onClick={handleBuyClick}>Buy</button>
-        <button style={{ display: isShow ? 'block' : 'none' }} onClick={handlecancelClick}>Cancel Order</button>
-        <h6></h6>
-        <button style={{ display: isShow ? 'block' : 'none' }} onClick={handlechangeClick}>Change Order Price</button>
+        <button style={{ display: isShowButton ? 'none' : 'block' }} onClick={handleBuyClick}>Buy</button>
+        <button style={{ display: isShowButton ? 'block' : 'none' }} onClick={handlecancelClick}>Cancel Order</button>
+        <span></span>
+        <button style={{ display: isShowButton ? 'block' : 'none' }} onClick={handlechangeClick}>Change Order Price</button>
+        {/* 弹出价格输入窗口 */}
+        {isPricePopupVisible && (
+          <div className="price-popup">
+            <button onClick={() => handlePriceChange(-1)}>-</button>
+            <span>{selectedPrice} USDT</span>
+            <button onClick={() => handlePriceChange(1)}>+</button>
+            <button onClick={handleConfirmPrice}>Confirm</button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const contractAddress = process.env.REACT_APP_cUSDTAdrss;
 export async function approve (spender, amount) {
   const contract = new ethers.Contract(contractAddress, ABI, await provider.getSigner());
   const result = await contract.approve(spender, amount);
-  console.log(result.hash);
+  console.log('approve successfully', result.hash);
 }
 
 // 查看是否有操控的权利
