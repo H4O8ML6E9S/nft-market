@@ -155,3 +155,21 @@ textarea#description::placeholder {
 .navbar a {
   color: white;
 }
+
+/* new */
+.empty-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  background: linear-gradient(100deg, #00a3ff, #a9a9a9);
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.empty-message h1 {
+  font-size: 3em;
+  margin: 0;
+}

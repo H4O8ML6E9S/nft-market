@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-16 16:58:08
+ * @LastEditTime: 2023-12-29 13:43:40
  */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +18,10 @@ const NFTGrid = () => {
     navigate(`/nft-detail/${tokenId}`);
   };
 
+  // 用于页面展示
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
+
   // 获取该用户所有的NFT
   /* 
    1.通过balanceof获取用户拥有的NFT数量
@@ -28,22 +32,35 @@ const NFTGrid = () => {
     const fetchNFTs = async () => {
       const length = await balanceOf(process.env.REACT_APP_MarketAdrss);
       console.log('length', length);
-      for (let i = 0; i < length; i++) {
-        // 这里写成market的地址是因为后端safeTransferFrom给market，等于是上架了
-        const tokenId = await tokenOfOwnerByIndex(process.env.REACT_APP_MarketAdrss, i);
-        // console.log('i', i)
-        setNfts((prev) => [...prev, tokenId]);
-        setNfts((prev) => [...new Set(prev)])
+      if (length === 0) {
+        setIsEmpty(true); // 如果列表为空，设置isEmpty为true
+      } else {
+        for (let i = 0; i < length; i++) {
+          // 这里写成market的地址是因为后端safeTransferFrom给market，等于是上架了
+          const tokenId = await tokenOfOwnerByIndex(process.env.REACT_APP_MarketAdrss, i);
+          // console.log('i', i)
+          setNfts((prev) => [...prev, tokenId]);
+          setNfts((prev) => [...new Set(prev)])
+        }
       }
     };
     fetchNFTs();
   }, [])
 
   return (
-    <div className="nft-grid">
-      {nfts.map(nft => (
-        <NFTCard key={nft.tokenId} tokenId={nft} onClick={() => handleCardClick(nft)} />
-      ))}
+    <div className="text-center">
+      {isEmpty && (
+        <div className="empty-message">
+          <h1>空空如也</h1>
+        </div>
+      )}
+      {!isFetching && !isEmpty && (
+        <div className="nft-grid">
+          {nfts.map(nft => (
+            <NFTCard key={nft.tokenId} tokenId={nft} onClick={() => handleCardClick(nft)} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

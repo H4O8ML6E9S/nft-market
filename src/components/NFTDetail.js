@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-25 15:09:52
+ * @LastEditTime: 2023-12-25 15:42:13
  */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -125,7 +125,7 @@ const NFTDetail = () => {
         <p>Token ID: {order.tokenId}</p>
         <button style={{ display: isShowButton ? 'none' : 'block' }} onClick={handleBuyClick}>Buy</button>
         <button style={{ display: isShowButton ? 'block' : 'none' }} onClick={handlecancelClick}>Cancel Order</button>
-        <span></span>
+        <h6></h6>
         <button style={{ display: isShowButton ? 'block' : 'none' }} onClick={handlechangeClick}>Change Order Price</button>
         {/* 弹出价格输入窗口 */}
         {isPricePopupVisible && (

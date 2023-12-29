@@ -1,7 +1,7 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-23 11:00:28
+ * @LastEditTime: 2023-12-29 13:12:26
  */
 import './App.css';
 import { useState, useEffect } from 'react';
@@ -56,12 +56,12 @@ function App () {
       <Router>
         <Navbar onConnectWallet={getwalletAddress} walletAddress={walletAddress} />
         <Routes>
-          <Route path='/' exact element={<UploadImage address={walletAddress} />} />
-          <Route path="/nfts" element={<NFTGrid />} />
+          <Route path="/create-nft" exact element={<UploadImage address={walletAddress} />} />
+          <Route path="/success" element={<UploadSuccess />} />
+          <Route path="/" element={<NFTGrid />} />
           <Route path="/Mynfts" element={<MyNFT />} />
           <Route path="/nft-detail/:tokenId" element={<NFTDetail />} />
           <Route path="/mynft-detail/:tokenId" element={<MyNFTDetail />} />
-          <Route path="/success" element={<UploadSuccess />} />
         </Routes>
       </Router>
     </div>

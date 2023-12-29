@@ -1,11 +1,11 @@
 /*
  * @Author: 南宫
  * @Date: 2023-12-14 19:02:52
- * @LastEditTime: 2023-12-25 10:51:47
+ * @LastEditTime: 2023-12-29 13:11:58
  */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getOrder, cancelOrder } from '../utils/market.js';
+import { getOrder } from '../utils/market.js';
 import { getMetadata, Listing } from '../utils/nft.js';
 import '../App.css';
 
